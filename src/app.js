@@ -42,17 +42,20 @@ async function init() {
     AppState.tourData = await loadTourConfig('config/tour.xml');
     parseTourData(AppState.tourData);
 
-    // 2. Construir menus laterales
+    // 2. Inicializar router (historial y navegacion por hash)
+    Router.init();
+
+    // 3. Construir menus laterales
     SkinController.buildBlocksMenu(AppState.groups, AppState.nodes);
     SkinController.buildProgramsMenu(AppState.programs, AppState.nodes);
 
-    // 3. Vincular eventos UI
+    // 4. Vincular eventos UI
     bindUIEvents();
 
-    // 4. Actualizar configuracion del sitio
+    // 5. Actualizar configuracion del sitio
     applyTourConfig(AppState.tourData);
 
-    // 5. Ocultar loading y mostrar pantalla de inicio
+    // 6. Ocultar loading y mostrar pantalla de inicio
     // (el usuario hace clic en loading screen para continuar)
     document.getElementById('loading-screen').style.opacity = '0.95';
     document.querySelector('.loading-text').textContent = 'Haz clic para empezar...';
@@ -302,17 +305,18 @@ function navigateTo(nodeId) {
 }
 
 function navigateNext() {
-  const node = AppState.nodes[AppState.currentNode];
-  if (!node || !node.neighbors.length) return;
-  const current = node.neighbors.indexOf(AppState.currentNode);
-  const next = node.neighbors[(current + 1) % node.neighbors.length];
-  navigateTo(next || node.neighbors[0]);
+  const nodeIds = Object.keys(AppState.nodes);
+  const idx = nodeIds.indexOf(AppState.currentNode);
+  if (idx === -1 || nodeIds.length < 2) return;
+  const next = nodeIds[(idx + 1) % nodeIds.length];
+  navigateTo(next);
 }
 
 function navigatePrev() {
-  const node = AppState.nodes[AppState.currentNode];
-  if (!node || !node.neighbors.length) return;
-  const prev = node.neighbors[node.neighbors.length - 1];
+  const nodeIds = Object.keys(AppState.nodes);
+  const idx = nodeIds.indexOf(AppState.currentNode);
+  if (idx === -1 || nodeIds.length < 2) return;
+  const prev = nodeIds[(idx - 1 + nodeIds.length) % nodeIds.length];
   navigateTo(prev);
 }
 
@@ -331,8 +335,8 @@ function initMap(nodes) {
   const mapEl = document.getElementById('leaflet-map');
   if (!mapEl || typeof L === 'undefined') return;
 
-  // Coordenadas del campus (ajustar a tu institucion)
-  const center = [-75.536, 6.234];
+  // Coordenadas del campus [lat, lng] (ajustar a tu institucion)
+  const center = [6.234, -75.536];
 
   AppState.map = L.map('leaflet-map', {
     center: center,

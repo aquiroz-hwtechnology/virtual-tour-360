@@ -7,7 +7,9 @@
       "Bash(cp -r node_modules/leaflet/dist/images 3rdparty/leaflet/images)",
       "Bash(mkdir -p 3rdparty/pannellum)",
       "Bash(cp node_modules/pannellum/build/pannellum.js 3rdparty/pannellum/pannellum.js)",
-      "Bash(cp node_modules/pannellum/build/pannellum.css 3rdparty/pannellum/pannellum.css)"
+      "Bash(cp node_modules/pannellum/build/pannellum.css 3rdparty/pannellum/pannellum.css)",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "Bash(pip install:*)"
     ]
   }
 }
