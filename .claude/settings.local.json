@@ -9,7 +9,11 @@
       "Bash(cp node_modules/pannellum/build/pannellum.js 3rdparty/pannellum/pannellum.js)",
       "Bash(cp node_modules/pannellum/build/pannellum.css 3rdparty/pannellum/pannellum.css)",
       "Bash(python -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "WebFetch(domain:panoee.com)",
+      "WebFetch(domain:tour.panoee.net)",
+      "Bash(curl -L -o panoramas/node1/pano-original.jpg \"https://assets.panoee.com/statics/uploads/user/69d676880df69343efd8dd9e/media/pano/dPjw74daA05qcSB1kTev.jpeg\")",
+      "Bash(python -c ':*)"
     ]
   }
 }

@@ -25,11 +25,11 @@
        GRUPOS DEL MENU LATERAL (BLOQUES)
   ════════════════════════════════════════ -->
   <groups>
-    <group id="g_vistas" label="Vistas Aereas" count="3" />
-    <group id="g_zonas"  label="Zonas Sociales" count="5" />
-    <group id="g_bloque_a" label="Bloque A" count="4" />
-    <group id="g_bloque_b" label="Bloque B" count="6" />
-    <group id="g_biblioteca" label="Biblioteca" count="2" />
+    <group id="g_bosque_paredes"  label="Bosque Paredes" />
+    <group id="g_bosque_primario" label="Bosque Primario" />
+    <group id="g_vivero"          label="Vivero" />
+    <group id="g_piara"           label="Piara" />
+    <group id="g_laboratorios"    label="Laboratorios" />
   </groups>
 
   <!-- ═══════════════════════════════════════
@@ -51,12 +51,12 @@
   <panorama 
     id="node1" 
     label="Plazoleta Principal"
-    group="g_zonas"
+    group="g_bosque_paredes"
     program=""
     image="panoramas/node1/pano.jpg"
     preview="preview/plazoleta-principal.jpg"
     thumbnail="images/node_image_1.jpg"
-    lat="-75.536" lng="6.234"
+    lat="6.234" lng="-75.536"
     description="La plazoleta principal es el corazon del campus. Aqui se realizan eventos, ferias y actividades culturales."
     audio="audio/plazoleta.mp3">
     
@@ -108,12 +108,12 @@
   <panorama
     id="node2"
     label="Biblioteca"
-    group="g_biblioteca"
+    group="g_bosque_primario"
     program=""
     image="panoramas/node2/pano.jpg"
     preview="preview/biblioteca.jpg"
     thumbnail="images/node_image_2.jpg"
-    lat="-75.537" lng="6.235"
+    lat="6.235" lng="-75.537"
     description="La biblioteca Juan Roa cuenta con mas de 50.000 volumenes y espacios de estudio individual y grupal.">
 
     <hotspot type="nav" target="node1" label="Volver a Plazoleta" yaw="180" pitch="0" />
@@ -137,12 +137,12 @@
   <panorama
     id="node3"
     label="Auditorio Principal"
-    group="g_bloque_a"
+    group="g_vivero"
     program=""
     image="panoramas/node3/pano.jpg"
     preview="preview/auditorio.jpg"
     thumbnail="images/node_image_3.jpg"
-    lat="-75.535" lng="6.236"
+    lat="6.236" lng="-75.535"
     description="El auditorio principal tiene capacidad para 500 personas y es sede de los principales eventos academicos y culturales.">
 
     <hotspot type="nav" target="node1" label="Ir a Plazoleta" yaw="-90" pitch="0" />
