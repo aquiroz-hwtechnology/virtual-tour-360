@@ -16,17 +16,17 @@
 </head>
 <body>
 
-  <!-- PANTALLA DE CARGA -->
-  <div id="loading-screen" class="loading-screen">
+  <!-- PANTALLA DE CARGA (oculta por defecto) -->
+  <div id="loading-screen" class="loading-screen hidden">
     <div class="loading-content">
       <img src="images/logo.png" alt="Logo" class="loading-logo" onerror="this.style.display='none'" />
       <div class="loading-spinner"></div>
-      <p class="loading-text">Haz clic para empezar...</p>
+      <p class="loading-text">Cargando...</p>
     </div>
   </div>
 
   <!-- APP CONTAINER -->
-  <div id="app-container" class="app-container hidden">
+  <div id="app-container" class="app-container">
 
     <!-- HUD SUPERIOR -->
     <header id="hud-top" class="hud-top">

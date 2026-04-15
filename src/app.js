@@ -55,16 +55,19 @@ async function init() {
     // 5. Actualizar configuracion del sitio
     applyTourConfig(AppState.tourData);
 
-    // 6. Ocultar loading y mostrar pantalla de inicio
-    // (el usuario hace clic en loading screen para continuar)
-    document.getElementById('loading-screen').style.opacity = '0.95';
-    document.querySelector('.loading-text').textContent = 'Haz clic para empezar...';
+    // 6. Ocultar loading y mostrar app directamente
+    document.getElementById('loading-screen').classList.add('hidden');
+    document.getElementById('app-container').classList.remove('hidden');
     AppState.isLoading = false;
+
+    // 7. Inicializar mapa
+    initMap(AppState.nodes);
 
   } catch (err) {
     console.error('Error al inicializar el tour:', err);
-    document.querySelector('.loading-text').textContent = 
-      'Error al cargar el tour. Verifica tu configuracion.';
+    // Aun con error, mostrar la app (el iframe de Panoee funciona independiente)
+    document.getElementById('loading-screen').classList.add('hidden');
+    document.getElementById('app-container').classList.remove('hidden');
   }
 }
 
@@ -412,23 +415,6 @@ function updateActiveMenuItem(nodeId) {
 // EVENTOS DE UI
 // ═══════════════════════════════════════════
 function bindUIEvents() {
-  // Loading screen
-  document.getElementById('loading-screen').addEventListener('click', onLoadingClick);
-
-  // Flechas de navegacion
-  document.getElementById('btn-prev').addEventListener('click', navigatePrev);
-  document.getElementById('btn-next').addEventListener('click', navigateNext);
-
-  // Selector de hora
-  document.querySelectorAll('.time-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      AppState.currentTime = btn.dataset.time;
-      if (AppState.currentNode) initViewer(AppState.currentNode);
-    });
-  });
-
   // Tabs del sidebar
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -493,33 +479,12 @@ function bindUIEvents() {
 
   // Teclado
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') navigateNext();
-    if (e.key === 'ArrowLeft')  navigatePrev();
-    if (e.key === 'Escape')     SkinController.closeAllModals();
+    if (e.key === 'Escape') SkinController.closeAllModals();
   });
-}
-
-function onLoadingClick() {
-  if (AppState.isLoading) return;
-  const screen = document.getElementById('loading-screen');
-  screen.style.opacity = '0';
-  setTimeout(() => {
-    screen.classList.add('hidden');
-    document.getElementById('app-container').classList.remove('hidden');
-    initMap(AppState.nodes);
-    SkinController.showModal('modal-tour-mode');
-  }, 400);
 }
 
 function onInstructionsClosed() {
   SkinController.hideModal('modal-instructions');
-}
-
-function startTour() {
-  const startNode = AppState.tourMeta?.start || Object.keys(AppState.nodes)[0];
-  if (startNode) {
-    initViewer(startNode);
-  }
 }
 
 // ═══════════════════════════════════════════
