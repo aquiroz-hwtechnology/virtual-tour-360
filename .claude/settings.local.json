@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(cp node_modules/leaflet/dist/leaflet.js 3rdparty/leaflet/leaflet.js)",
+      "Bash(cp node_modules/leaflet/dist/leaflet.css 3rdparty/leaflet/leaflet.css)",
+      "Bash(cp -r node_modules/leaflet/dist/images 3rdparty/leaflet/images)",
+      "Bash(mkdir -p 3rdparty/pannellum)",
+      "Bash(cp node_modules/pannellum/build/pannellum.js 3rdparty/pannellum/pannellum.js)",
+      "Bash(cp node_modules/pannellum/build/pannellum.css 3rdparty/pannellum/pannellum.css)"
+    ]
+  }
+}
