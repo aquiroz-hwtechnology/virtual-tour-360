@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Recorrido Virtual 360 - Tu Institucion" />
+  <title>Recorrido Virtual 360 - Tu Institucion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="3rdparty/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/skin.css" />
+</head>
+<body>
+
+  <!-- PANTALLA DE CARGA -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <img src="images/logo.png" alt="Logo" class="loading-logo" onerror="this.style.display='none'" />
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Haz clic para empezar...</p>
+    </div>
+  </div>
+
+  <!-- APP CONTAINER -->
+  <div id="app-container" class="app-container hidden">
+
+    <!-- HUD SUPERIOR -->
+    <header id="hud-top" class="hud-top">
+      <div class="hud-logo">
+        <img src="images/logo.png" alt="Logo" onerror="this.outerHTML='<span class=hud-title>Virtual Tour 360</span>'" />
+      </div>
+      <nav class="hud-actions">
+        <button id="btn-share"    class="hud-btn" title="Compartir link">&#128279;</button>
+        <button id="btn-whatsapp" class="hud-btn" title="WhatsApp" onclick="window.open('https://wa.me/?text='+encodeURIComponent(location.href))">&#128241;</button>
+        <button id="btn-audio"   class="hud-btn" title="Audio ON/OFF" data-on="true">&#128266;</button>
+        <button id="btn-messages" class="hud-btn" title="Mensajes">&#128172;</button>
+        <button id="btn-settings" class="hud-btn" title="Ajustes">&#9881;</button>
+      </nav>
+      <div class="hud-credits">Desarrollado por <span>Tu Empresa S.A.S.</span></div>
+    </header>
+
+    <!-- PANEL LATERAL -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" data-tab="blocks">Bloques</button>
+        <button class="tab-btn" data-tab="programs">Programas</button>
+      </div>
+      <div id="tab-blocks" class="tab-content active">
+        <div id="node-list" class="node-list"></div>
+      </div>
+      <div id="tab-programs" class="tab-content">
+        <div id="program-list" class="program-list"></div>
+      </div>
+    </aside>
+
+    <!-- VISOR 360 -->
+    <main id="viewer-container" class="viewer-container">
+      <canvas id="panorama-canvas"></canvas>
+      <div id="hotspots-layer" class="hotspots-layer"></div>
+
+      <!-- SELECTOR DE HORA -->
+      <div id="time-selector" class="time-selector">
+        <button class="time-btn active" data-time="morning">Manana</button>
+        <button class="time-btn" data-time="afternoon">Tarde</button>
+        <button class="time-btn" data-time="night">Noche</button>
+      </div>
+
+      <!-- NAVEGACION -->
+      <div class="nav-arrows">
+        <button id="btn-prev" class="nav-arrow" title="Anterior">&#8249;</button>
+        <div id="progress-bar" class="progress-bar">
+          <div id="progress-dot" class="progress-dot"></div>
+        </div>
+        <button id="btn-next" class="nav-arrow" title="Siguiente">&#8250;</button>
+      </div>
+
+      <!-- MINIMAP -->
+      <div id="minimap" class="minimap">
+        <div id="leaflet-map" style="width:100%;height:100%;"></div>
+      </div>
+
+      <!-- BOTON SITIO WEB -->
+      <a id="btn-website" class="btn-website" href="#" target="_blank">
+        &#127760; Ir al sitio web
+      </a>
+
+      <!-- GAMIFICACION COUNTER -->
+      <div id="game-counter" class="game-counter hidden">
+        <span id="game-found">0</span>/<span id="game-total">10</span>
+        <small>Tesoros</small>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODALES ════════════════════════════════ -->
+
+  <!-- Modal: Modo de recorrido -->
+  <div id="modal-tour-mode" class="modal hidden">
+    <div class="modal-content">
+      <h2>Estas a punto de iniciar una aventura.</h2>
+      <p>Elige como deseas hacer tu recorrido:</p>
+      <div class="tour-mode-options">
+        <button class="tour-mode-btn" data-mode="free">
+          <span class="mode-icon">&#128506;</span>
+          <strong>Libre</strong>
+          <small>Explora a tu propio ritmo</small>
+        </button>
+        <button class="tour-mode-btn" data-mode="guided">
+          <span class="mode-icon">&#127919;</span>
+          <strong>Guiado</strong>
+          <small>Recorre con una mision y descubre secretos</small>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Pista encontrada -->
+  <div id="modal-clue" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-badge">&#10024; Has encontrado una pista!</div>
+      <div id="clue-content" class="clue-content"></div>
+      <div class="clue-counter">
+        <span id="clue-found">0</span>/<span id="clue-total">10</span>
+      </div>
+      <button class="btn-primary" id="btn-close-clue">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Modal: Recompensa final -->
+  <div id="modal-reward" class="modal hidden">
+    <div class="modal-content">
+      <h2>&#127942; LO HAS LOGRADO!</h2>
+      <p>Has completado el recorrido guiado.</p>
+      <button class="btn-primary" id="btn-open-reward">Abre tu recompensa</button>
+      <button class="btn-secondary" id="btn-close-reward">Seguir explorando</button>
+    </div>
+  </div>
+
+  <!-- Modal: Inscribete -->
+  <div id="modal-signup" class="modal hidden">
+    <div class="modal-content">
+      <button class="btn-close-modal" id="btn-close-signup">&#10005;</button>
+      <h2>&#127881; Tu futuro inicia aqui!</h2>
+      <p>Conoce nuestros programas academicos y da el primer paso.</p>
+      <a href="https://tusitio.edu.co/inscripciones" target="_blank" class="btn-primary">Inscribete</a>
+      <a href="https://tusitio.edu.co/programas" target="_blank" class="btn-secondary">Conoce nuestros programas</a>
+    </div>
+  </div>
+
+  <!-- Modal: Instrucciones -->
+  <div id="modal-instructions" class="modal hidden">
+    <div class="modal-content">
+      <h3>&#128214; Instrucciones de uso</h3>
+      <ul class="instructions-list">
+        <li><strong>Clic + Arrastrar</strong> para girar el panorama</li>
+        <li><strong>Rueda del mouse</strong> para zoom</li>
+        <li><strong>Teclas flechas</strong> para navegar entre panoramas</li>
+        <li><strong>Clic en iconos</strong> para revelar informacion</li>
+        <li><strong>Movil:</strong> mueve el telefono para girar</li>
+      </ul>
+      <button class="btn-primary" id="btn-close-instructions">Vamos!</button>
+    </div>
+  </div>
+
+  <!-- Modal: Info de espacio -->
+  <div id="modal-info" class="modal hidden">
+    <div class="modal-content modal-info-content">
+      <button class="btn-close-modal" id="btn-close-info">&#10005;</button>
+      <img id="info-image" src="" alt="" class="info-image" />
+      <h3 id="info-title"></h3>
+      <p id="info-description"></p>
+      <div id="info-extra"></div>
+    </div>
+  </div>
+
+  <!-- Notificacion de link copiado -->
+  <div id="toast-copy" class="toast hidden">
+    &#128279; Link copiado en el portapapeles
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="3rdparty/leaflet/leaflet.js"></script>
+  <script src="src/router.js"></script>
+  <script src="src/gamification.js"></script>
+  <script src="src/skin.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

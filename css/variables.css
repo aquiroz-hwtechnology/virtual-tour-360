@@ -1,0 +1,79 @@
+:root {
+  /* Colores corporativos - EDITAR AQUI */
+  --color-primary:       #008374;
+  --color-primary-dark:  #006a5e;
+  --color-primary-light: #00a896;
+  --color-secondary:     #7bc142;
+  --color-accent:        #00d4c1;
+
+  /* Neutros */
+  --color-white:         #ffffff;
+  --color-black:         #000000;
+  --color-gray-100:      #f5f5f5;
+  --color-gray-200:      #e0e0e0;
+  --color-gray-400:      #9e9e9e;
+  --color-gray-700:      #424242;
+  --color-gray-900:      #1a1a1a;
+
+  /* UI Fondos */
+  --color-sidebar-bg:    rgba(0, 131, 116, 0.95);
+  --color-hud-bg:        rgba(255, 255, 255, 0.97);
+  --color-overlay-bg:    rgba(0, 0, 0, 0.65);
+  --color-modal-bg:      rgba(255, 255, 255, 0.99);
+
+  /* Tipografia */
+  --font-primary:        'Montserrat', sans-serif;
+  --font-size-xs:        0.625rem;
+  --font-size-sm:        0.75rem;
+  --font-size-base:      0.875rem;
+  --font-size-md:        1rem;
+  --font-size-lg:        1.25rem;
+  --font-size-xl:        1.5rem;
+  --font-size-2xl:       2rem;
+  --font-weight-light:   300;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-bold:    700;
+  --font-weight-black:   800;
+
+  /* Espaciado */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+
+  /* Radios */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.15);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.25);
+  --shadow-xl:  0 16px 48px rgba(0,0,0,0.35);
+
+  /* Transiciones */
+  --transition-fast:  0.15s ease;
+  --transition-base:  0.25s ease;
+  --transition-slow:  0.4s ease;
+
+  /* Z-index */
+  --z-viewer:   1;
+  --z-hotspots: 10;
+  --z-minimap:  25;
+  --z-sidebar:  20;
+  --z-hud:      30;
+  --z-modal:    100;
+  --z-loading:  200;
+
+  /* Dimensiones layout */
+  --sidebar-width:  300px;
+  --hud-height:     56px;
+  --minimap-size:   200px;
+  --hotspot-size:   40px;
+}

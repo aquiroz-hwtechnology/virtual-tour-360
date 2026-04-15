@@ -1,0 +1,5 @@
+# Copiar aqui los archivos de Leaflet.js
+# npm install leaflet
+# cp node_modules/leaflet/dist/leaflet.js .
+# cp node_modules/leaflet/dist/leaflet.css .
+# Leaflet v1.9.4: https://leafletjs.com/download.html

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TOUR CONFIGURATION FILE
+  ========================
+  Edita este archivo para configurar tu tour virtual.
+  
+  ESTRUCTURA:
+  - <tour>        : Configuracion global del tour
+  - <panorama>    : Un nodo/escena del tour
+    - <hotspot>   : Punto de interes interactivo
+    - <neighbors> : Conexiones con otros nodos
+  - <groups>      : Grupos para el menu lateral
+  - <programs>    : Categorias por programa academico
+-->
+
+<tour 
+  start="node1" 
+  title="Recorrido Virtual 360 - Tu Institucion"
+  institution="Universidad Ejemplo"
+  website="https://tusitio.edu.co"
+  whatsapp="+57300000000"
+  version="1.0">
+
+  <!-- ═══════════════════════════════════════
+       GRUPOS DEL MENU LATERAL (BLOQUES)
+  ════════════════════════════════════════ -->
+  <groups>
+    <group id="g_vistas" label="Vistas Aereas" count="3" />
+    <group id="g_zonas"  label="Zonas Sociales" count="5" />
+    <group id="g_bloque_a" label="Bloque A" count="4" />
+    <group id="g_bloque_b" label="Bloque B" count="6" />
+    <group id="g_biblioteca" label="Biblioteca" count="2" />
+  </groups>
+
+  <!-- ═══════════════════════════════════════
+       PROGRAMAS ACADEMICOS
+  ════════════════════════════════════════ -->
+  <programs>
+    <program id="p_salud"      label="Ciencias de la Salud"    icon="images/asalud.png"    color="#E53935" />
+    <program id="p_ingenieria" label="Ingenierias"             icon="images/aingenieras.png" color="#1E88E5" />
+    <program id="p_economia"   label="Ciencias Economicas"     icon="images/aeconomia.png" color="#43A047" />
+    <program id="p_humanas"    label="Ciencias Sociales"       icon="images/asochum.png"   color="#8E24AA" />
+    <program id="p_creacion"   label="Creacion y Comunicacion" icon="images/acreacom.png"  color="#FB8C00" />
+  </programs>
+
+  <!-- ═══════════════════════════════════════
+       PANORAMAS / NODOS DEL TOUR
+  ════════════════════════════════════════ -->
+
+  <!-- NODO 1: Plazoleta Principal -->
+  <panorama 
+    id="node1" 
+    label="Plazoleta Principal"
+    group="g_zonas"
+    program=""
+    image="panoramas/node1/pano.jpg"
+    preview="preview/plazoleta-principal.jpg"
+    thumbnail="images/node_image_1.jpg"
+    lat="-75.536" lng="6.234"
+    description="La plazoleta principal es el corazon del campus. Aqui se realizan eventos, ferias y actividades culturales."
+    audio="audio/plazoleta.mp3">
+    
+    <!-- Variantes de iluminacion -->
+    <variant time="morning"   image="panoramas/node1/pano-morning.jpg" />
+    <variant time="afternoon" image="panoramas/node1/pano-afternoon.jpg" />
+    <variant time="night"     image="panoramas/node1/pano-night.jpg" />
+    
+    <!-- Hotspots de navegacion -->
+    <hotspot 
+      type="nav" 
+      target="node2"
+      label="Ir a Biblioteca"
+      yaw="-45" pitch="0"
+      icon="arrow" />
+    
+    <hotspot 
+      type="nav"
+      target="node3"
+      label="Ir a Auditorio"
+      yaw="90" pitch="0"
+      icon="arrow" />
+
+    <!-- Hotspots de informacion -->
+    <hotspot
+      type="info"
+      label="Monumento Central"
+      yaw="0" pitch="-10"
+      info_title="Monumento al Fundador"
+      info_text="Escultura dedicada al fundador de la institucion, inaugurada en 1969."
+      info_image="images/monumento.jpg" />
+
+    <!-- Hotspot de juego -->
+    <hotspot
+      type="game"
+      label="Pista #1"
+      yaw="135" pitch="5"
+      clue_id="clue_1"
+      clue_text="Has encontrado la primera pista. La respuesta esta en la entrada principal." />
+
+    <!-- Vecinos para navegacion con flechas -->
+    <neighbors>
+      <neighbor id="node2" />
+      <neighbor id="node3" />
+    </neighbors>
+  </panorama>
+
+  <!-- NODO 2: Biblioteca -->
+  <panorama
+    id="node2"
+    label="Biblioteca"
+    group="g_biblioteca"
+    program=""
+    image="panoramas/node2/pano.jpg"
+    preview="preview/biblioteca.jpg"
+    thumbnail="images/node_image_2.jpg"
+    lat="-75.537" lng="6.235"
+    description="La biblioteca Juan Roa cuenta con mas de 50.000 volumenes y espacios de estudio individual y grupal.">
+
+    <hotspot type="nav" target="node1" label="Volver a Plazoleta" yaw="180" pitch="0" />
+    <hotspot type="nav" target="node3" label="Ir a Auditorio"     yaw="45"  pitch="0" />
+    
+    <hotspot
+      type="info"
+      label="Sala de Lectura"
+      yaw="0" pitch="-5"
+      info_title="Sala Principal de Lectura"
+      info_text="Capacidad para 200 personas con acceso a bases de datos academicas internacionales."
+      info_image="images/sala-lectura.jpg" />
+
+    <neighbors>
+      <neighbor id="node1" />
+      <neighbor id="node3" />
+    </neighbors>
+  </panorama>
+
+  <!-- NODO 3: Auditorio Principal -->
+  <panorama
+    id="node3"
+    label="Auditorio Principal"
+    group="g_bloque_a"
+    program=""
+    image="panoramas/node3/pano.jpg"
+    preview="preview/auditorio.jpg"
+    thumbnail="images/node_image_3.jpg"
+    lat="-75.535" lng="6.236"
+    description="El auditorio principal tiene capacidad para 500 personas y es sede de los principales eventos academicos y culturales.">
+
+    <hotspot type="nav" target="node1" label="Ir a Plazoleta" yaw="-90" pitch="0" />
+    <hotspot type="nav" target="node2" label="Ir a Biblioteca" yaw="0"  pitch="0" />
+
+    <hotspot
+      type="game"
+      label="Pista #2"
+      yaw="60" pitch="-5"
+      clue_id="clue_2"
+      clue_text="Segunda pista encontrada. Busca el escudo institucional en la sala de exposiciones." />
+
+    <neighbors>
+      <neighbor id="node1" />
+      <neighbor id="node2" />
+    </neighbors>
+  </panorama>
+
+  <!-- AGREGA MAS NODOS AQUI SIGUIENDO EL MISMO PATRON -->
+
+  <!-- ═══════════════════════════════════════
+       CONFIGURACION DEL TOUR GUIADO
+  ════════════════════════════════════════ -->
+  <guided_tours>
+    <tour id="tour_general" label="Recorrido General" nodes="node1,node2,node3" total_clues="2" />
+    <tour id="tour_salud"   label="Ciencias de la Salud" nodes="node1,node3" total_clues="1" />
+  </guided_tours>
+
+</tour>

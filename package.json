@@ -1,0 +1,29 @@
+{
+  "name": "virtual-tour-360",
+  "version": "1.0.0",
+  "description": "Tour Virtual 360 - Plantilla open source basada en analisis de recorridovirtual.unbosque.edu.co",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . --port 3000",
+    "build": "echo 'Sitio estatico, no requiere build. Solo sube los archivos a S3 o Netlify.'",
+    "deploy:netlify": "netlify deploy --prod --dir .",
+    "deploy:s3": "aws s3 sync . s3://tu-bucket --exclude 'node_modules/*' --exclude '.git/*'"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "pannellum": "^2.5.6"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  },
+  "keywords": [
+    "virtual-tour",
+    "360",
+    "panorama",
+    "leaflet",
+    "pannellum",
+    "webgl"
+  ],
+  "author": "Tu Empresa S.A.S.",
+  "license": "MIT"
+}

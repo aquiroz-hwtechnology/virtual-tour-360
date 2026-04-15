@@ -1,0 +1,6 @@
+# Carpeta para imagenes panoramicas equirectangulares
+# Estructura:
+# panoramas/node_1/pano.jpg
+# panoramas/node_1/pano-morning.jpg
+# panoramas/node_1/pano-afternoon.jpg
+# panoramas/node_1/pano-night.jpg

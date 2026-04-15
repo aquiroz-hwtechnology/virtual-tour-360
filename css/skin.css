@@ -1,0 +1,102 @@
+/* SKIN.CSS - Estilos especificos de la skin del tour
+   Extiende main.css con componentes visuales adicionales */
+
+/* Zoom buttons (Leaflet override) */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  color: var(--color-primary) !important;
+  font-weight: var(--font-weight-bold) !important;
+}
+
+/* Marcador de posicion en el mapa */
+.map-position-marker {
+  width: 14px; height: 14px;
+  background: var(--color-primary);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(0,131,116,0.3);
+}
+
+/* Info popup en el mapa */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md) !important;
+  font-family: var(--font-primary) !important;
+  font-size: var(--font-size-sm) !important;
+}
+.leaflet-popup-tip-container { display:none; }
+
+/* Hotspot de tipo "info" */
+.hotspot[data-type="info"]  { background: var(--color-primary); }
+.hotspot[data-type="nav"]   { background: #2196F3; }
+.hotspot[data-type="game"]  { background: #FF9800; }
+.hotspot[data-type="video"] { background: #E91E63; }
+.hotspot[data-type="link"]  { background: var(--color-secondary); }
+
+/* Panel de info flotante (tooltip grande) */
+.info-panel {
+  position: absolute;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  max-width: 260px;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  pointer-events: none;
+  z-index: calc(var(--z-hotspots) + 1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.info-panel img {
+  width: 100%; height: 120px; object-fit: cover;
+  border-radius: var(--radius-sm); margin-bottom: var(--space-sm);
+}
+.info-panel h4 {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 4px;
+}
+
+/* Rutas del tour guiado */
+.guided-route-panel {
+  position: absolute; top: var(--space-md); left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white; padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full); font-size: var(--font-size-sm);
+  z-index: var(--z-hotspots); white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+.guided-route-panel span { color: var(--color-secondary); font-weight: var(--font-weight-bold); }
+
+/* Barra de progreso del tour guiado */
+.guided-progress-bar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: rgba(255,255,255,0.2); z-index: var(--z-hud);
+}
+.guided-progress-fill {
+  height: 100%; background: var(--color-secondary);
+  transition: width var(--transition-base);
+}
+
+/* Scroll area del sidebar con fade */
+.node-list, .program-list {
+  padding: var(--space-sm) 0;
+}
+
+/* Seccion de programas */
+.program-group-header {
+  display: flex; align-items: center; gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(255,255,255,0.08);
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  color: var(--color-white);
+  border-left: 3px solid var(--color-secondary);
+  margin-bottom: 2px;
+}
+.program-group-header img {
+  width: 36px; height: 36px; object-fit: contain;
+  filter: brightness(0) invert(1);
+}
