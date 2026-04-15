@@ -57,26 +57,23 @@
       </div>
     </aside>
 
-    <!-- VISOR 360 -->
+    <!-- VISOR 360 (Panoee embebido) -->
     <main id="viewer-container" class="viewer-container">
-      <div id="panorama-canvas"></div>
-      <div id="hotspots-layer" class="hotspots-layer"></div>
-
-      <!-- SELECTOR DE HORA -->
-      <div id="time-selector" class="time-selector">
-        <button class="time-btn active" data-time="morning">Manana</button>
-        <button class="time-btn" data-time="afternoon">Tarde</button>
-        <button class="time-btn" data-time="night">Noche</button>
-      </div>
-
-      <!-- NAVEGACION -->
-      <div class="nav-arrows">
-        <button id="btn-prev" class="nav-arrow" title="Anterior">&#8249;</button>
-        <div id="progress-bar" class="progress-bar">
-          <div id="progress-dot" class="progress-dot"></div>
-        </div>
-        <button id="btn-next" class="nav-arrow" title="Siguiente">&#8250;</button>
-      </div>
+      <iframe
+        id="panoee-viewer"
+        src="https://tour.panoee.net/iframe/69df2139fc5e2ea37999a2f0"
+        frameborder="0"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        allowvr="yes"
+        allow="vr; xr; accelerometer; gyroscope; autoplay;"
+        allowfullscreen="true"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+        loading="lazy"
+        style="position:absolute; inset:0; border:none;">
+      </iframe>
 
       <!-- MINIMAP -->
       <div id="minimap" class="minimap">
@@ -184,10 +181,26 @@
 
   <!-- SCRIPTS -->
   <script src="3rdparty/leaflet/leaflet.js"></script>
-  <script src="3rdparty/pannellum/pannellum.js"></script>
   <script src="src/router.js"></script>
   <script src="src/gamification.js"></script>
   <script src="src/skin.js"></script>
   <script src="src/app.js"></script>
+
+  <!-- Soporte giroscopio movil para Panoee -->
+  <script>
+    var pano_iframe_name = "panoee-viewer";
+    window.addEventListener("devicemotion", function(e) {
+      var iframe = document.getElementById(pano_iframe_name);
+      if (iframe) iframe.contentWindow.postMessage({
+        type: "devicemotion",
+        deviceMotionEvent: {
+          acceleration: { x: e.acceleration.x, y: e.acceleration.y, z: e.acceleration.z },
+          accelerationIncludingGravity: { x: e.accelerationIncludingGravity.x, y: e.accelerationIncludingGravity.y, z: e.accelerationIncludingGravity.z },
+          rotationRate: { alpha: e.rotationRate.alpha, beta: e.rotationRate.beta, gamma: e.rotationRate.gamma },
+          interval: e.interval, timeStamp: e.timeStamp
+        }
+      }, "*");
+    });
+  </script>
 </body>
 </html>
